@@ -1,6 +1,7 @@
 const { expect } = require("chai");
 // const { BeforeAll } = require("cucumber");
 const { clickElement, getText } = require("./lib/commands.js");
+const daysWeek = require("./lib/util.js");
 
 
 let page;
@@ -19,6 +20,7 @@ describe("Booking tickets", () => {
     await page.goto("http://qamid.tmweb.ru/client/index.php", {
       timeout: 60000,
     });
+    await clickElement(page, daysWeek.fifthDay);
   });
 
   
@@ -32,7 +34,7 @@ test("Should book one seat", async () => {
   }, 60000);
 
 test("Should book one VIP seat", async () => {
-  await clickElement(page, "[data-seance-time-stamp='1654272000']");
+  await clickElement(page, "[data-seance-start='1140']");
   await clickElement(page, ".buying-scheme__wrapper > div:nth-child(1) > span.buying-scheme__chair.buying-scheme__chair_vip");
   await clickElement(page, ".acceptin-button");
 
@@ -43,7 +45,6 @@ test("Should book one VIP seat", async () => {
 
 test("Should don't booking seat", async () => {
   await clickElement(page, "[data-seance-id='93']");
-  await clickElement(page, "div:nth-child(2) > span.buying-scheme__chair.buying-scheme__chair_standart.buying-scheme__chair_taken");
 
   const isDisabled = await page.$eval("button", (button) => button.disabled);
   expect(isDisabled).to.equal(true);

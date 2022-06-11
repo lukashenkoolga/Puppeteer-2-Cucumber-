@@ -17,5 +17,8 @@
   "directories": {
     "lib": "lib"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@cucumber/cucumber": "^8.2.2"
+  }
 }
